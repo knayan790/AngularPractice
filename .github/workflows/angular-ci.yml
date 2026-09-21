@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular
-        run: npm run build -- --base-href /AngularPractice/
+        run: npm run build -- --base-href /AngularPractice/browser
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
