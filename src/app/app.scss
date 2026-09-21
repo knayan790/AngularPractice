@@ -1,0 +1,13 @@
+$divColor: green;
+@mixin generativeCode {
+     width: 100px;
+    height: 100px;
+    background-color : $divColor;
+}
+.container {
+    @include generativeCode;
+    .light {
+        color: blue;
+    }
+}
+
