@@ -8,44 +8,28 @@ on:
   pull_request:
     branches:
       - Development
-  # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
- 
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'npm'
- 
+
+      - name: Check Node and npm versions
+        run: |
+          node -v
+          npm -v
+          npm config get package-lock
+
       - name: Install dependencies
         run: npm ci
- 
-      - name: Build project
+
+      - name: Build Angular
         run: npm run build
- 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
- 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '../dist'
-          
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
