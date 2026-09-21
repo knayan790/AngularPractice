@@ -8,6 +8,11 @@ on:
   pull_request:
     branches:
       - Development
+  # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -42,7 +47,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: '../dist'
           
       - name: Deploy to GitHub Pages
         id: deployment
